@@ -1,0 +1,636 @@
+[
+    {
+        "id": "3b53b0b2.e61ed",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "316c606a.88ebc",
+        "type": "group",
+        "z": "3b53b0b2.e61ed",
+        "name": "P1 Data",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "98e65b68.155538",
+            "24ac3b79.f0a054",
+            "ced09af1.8fa49",
+            "6f545ace.be281c",
+            "87a2f9a8.e1d238",
+            "bf1f2916.a3df6",
+            "e468b12a.bd986",
+            "9e8aaca6.cd4188",
+            "2d9843b9.102b1c",
+            "e3db1c68.0af3a",
+            "65b8b234.c32464",
+            "960fd757.842a18",
+            "5d378bd0.074504",
+            "766c0289.dc65cc",
+            "11ba94f2.9cb0b3",
+            "f7d67adc.ec94d8",
+            "607d824b.f8c084",
+            "b76fa9b0.c52ac8",
+            "bf7fdb08.176b98"
+        ],
+        "x": 44,
+        "y": 89,
+        "w": 682,
+        "h": 322
+    },
+    {
+        "id": "ab1b6bbb.28639",
+        "type": "group",
+        "z": "3b53b0b2.e61ed",
+        "name": "Trigger",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "29b55bfc.e6fed4",
+            "b254d259.a79b18"
+        ],
+        "x": 44,
+        "y": 509,
+        "w": 142,
+        "h": 82
+    },
+    {
+        "id": "c59ca922.83af58",
+        "type": "group",
+        "z": "3b53b0b2.e61ed",
+        "name": "Output Batch",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "78fb5233.ac22cc",
+            "437da0b3.474e18"
+        ],
+        "x": 744,
+        "y": 129,
+        "w": 232,
+        "h": 82
+    },
+    {
+        "id": "29b55bfc.e6fed4",
+        "type": "interval",
+        "z": "3b53b0b2.e61ed",
+        "g": "ab1b6bbb.28639",
+        "name": "interval",
+        "interval": 10,
+        "onstart": false,
+        "msg": "ping",
+        "showstatus": false,
+        "unit": "seconds",
+        "statusformat": "YYYY-MM-D HH:mm:ss",
+        "x": 85,
+        "y": 550,
+        "wires": [
+            [
+                "b254d259.a79b18"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "b254d259.a79b18",
+        "type": "link out",
+        "z": "3b53b0b2.e61ed",
+        "g": "ab1b6bbb.28639",
+        "name": "",
+        "links": [
+            "c7d7bad8.377408",
+            "43a7cb06.eaa8a4",
+            "8cfeef52.285c5",
+            "cb81c1d3.ed2e98",
+            "24ac3b79.f0a054",
+            "7b5b06a2.de7368"
+        ],
+        "x": 145,
+        "y": 550,
+        "wires": []
+    },
+    {
+        "id": "78fb5233.ac22cc",
+        "type": "influxdb batch",
+        "z": "3b53b0b2.e61ed",
+        "g": "c59ca922.83af58",
+        "influxdb": "24751ef8.1ae98a",
+        "precision": "",
+        "retentionPolicy": "",
+        "name": "",
+        "x": 880,
+        "y": 170,
+        "wires": []
+    },
+    {
+        "id": "437da0b3.474e18",
+        "type": "link in",
+        "z": "3b53b0b2.e61ed",
+        "g": "c59ca922.83af58",
+        "name": "",
+        "links": [
+            "bf7fdb08.176b98"
+        ],
+        "x": 785,
+        "y": 170,
+        "wires": [
+            [
+                "78fb5233.ac22cc"
+            ]
+        ]
+    },
+    {
+        "id": "98e65b68.155538",
+        "type": "trigger",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "0",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "ping",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 525,
+        "y": 250,
+        "wires": [
+            [
+                "b76fa9b0.c52ac8"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "24ac3b79.f0a054",
+        "type": "link in",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "links": [
+            "b254d259.a79b18"
+        ],
+        "x": 455,
+        "y": 210,
+        "wires": [
+            [
+                "98e65b68.155538"
+            ]
+        ]
+    },
+    {
+        "id": "ced09af1.8fa49",
+        "type": "join",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "7",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 430,
+        "y": 250,
+        "wires": [
+            [
+                "98e65b68.155538"
+            ]
+        ]
+    },
+    {
+        "id": "6f545ace.be281c",
+        "type": "mqtt in",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "fluvius/wattAf",
+        "topic": "fluvius/wattAf",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "24143aef.eabc8e",
+        "x": 140,
+        "y": 130,
+        "wires": [
+            [
+                "e3db1c68.0af3a"
+            ]
+        ]
+    },
+    {
+        "id": "87a2f9a8.e1d238",
+        "type": "mqtt in",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "fluvius/wattIn",
+        "topic": "fluvius/wattIn",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "24143aef.eabc8e",
+        "x": 140,
+        "y": 170,
+        "wires": [
+            [
+                "65b8b234.c32464"
+            ]
+        ]
+    },
+    {
+        "id": "bf1f2916.a3df6",
+        "type": "mqtt in",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "fluvius/kwhAfDag",
+        "topic": "fluvius/kwhAfDag",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "24143aef.eabc8e",
+        "x": 150,
+        "y": 210,
+        "wires": [
+            [
+                "960fd757.842a18"
+            ]
+        ]
+    },
+    {
+        "id": "e468b12a.bd986",
+        "type": "mqtt in",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "fluvius/kwhAfNacht",
+        "topic": "fluvius/kwhAfNacht",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "24143aef.eabc8e",
+        "x": 160,
+        "y": 250,
+        "wires": [
+            [
+                "5d378bd0.074504"
+            ]
+        ]
+    },
+    {
+        "id": "9e8aaca6.cd4188",
+        "type": "mqtt in",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "fluvius/kwhInDag",
+        "topic": "fluvius/kwhInDag",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "24143aef.eabc8e",
+        "x": 150,
+        "y": 290,
+        "wires": [
+            [
+                "766c0289.dc65cc"
+            ]
+        ]
+    },
+    {
+        "id": "2d9843b9.102b1c",
+        "type": "mqtt in",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "fluvius/kwhInNacht",
+        "topic": "fluvius/kwhInNacht",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "24143aef.eabc8e",
+        "x": 160,
+        "y": 330,
+        "wires": [
+            [
+                "11ba94f2.9cb0b3"
+            ]
+        ]
+    },
+    {
+        "id": "e3db1c68.0af3a",
+        "type": "change",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 285,
+        "y": 130,
+        "wires": [
+            [
+                "ced09af1.8fa49"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "65b8b234.c32464",
+        "type": "change",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 285,
+        "y": 170,
+        "wires": [
+            [
+                "ced09af1.8fa49"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "960fd757.842a18",
+        "type": "change",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts",
+                "pt": "msg",
+                "to": "2",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 285,
+        "y": 210,
+        "wires": [
+            [
+                "ced09af1.8fa49"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "5d378bd0.074504",
+        "type": "change",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts",
+                "pt": "msg",
+                "to": "3",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 285,
+        "y": 250,
+        "wires": [
+            [
+                "ced09af1.8fa49"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "766c0289.dc65cc",
+        "type": "change",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts",
+                "pt": "msg",
+                "to": "4",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 285,
+        "y": 290,
+        "wires": [
+            [
+                "ced09af1.8fa49"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "11ba94f2.9cb0b3",
+        "type": "change",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts",
+                "pt": "msg",
+                "to": "5",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 285,
+        "y": 330,
+        "wires": [
+            [
+                "ced09af1.8fa49"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "f7d67adc.ec94d8",
+        "type": "mqtt in",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "fluvius/gasm3",
+        "topic": "fluvius/gasm3",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "24143aef.eabc8e",
+        "x": 140,
+        "y": 370,
+        "wires": [
+            [
+                "607d824b.f8c084"
+            ]
+        ]
+    },
+    {
+        "id": "607d824b.f8c084",
+        "type": "change",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts",
+                "pt": "msg",
+                "to": "6",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "p1data",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 285,
+        "y": 370,
+        "wires": [
+            [
+                "ced09af1.8fa49"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "b76fa9b0.c52ac8",
+        "type": "function",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "func": "let wattAf = msg.payload[0];\nlet wattIn = msg.payload[1];\nlet kwhAfDag = msg.payload[2];\nlet kwhAfNacht = msg.payload[3];\nlet kwhInDag = msg.payload[4];\nlet kwhInNacht = msg.payload[5];\nlet gasm3 = msg.payload[6];\nlet absolute = parseFloat(wattIn) - parseFloat(wattAf);\n\nmsg.payload = [\n  {\n    measurement: \"P1-P-InstantAfname\",\n    fields: {\n      value: parseFloat(wattAf)\n    },\n  },\n  {\n    measurement: \"P1-P-InstantInjectie\",\n    fields: {\n      value: parseFloat(wattIn)\n    },\t\n  },\n  {\n    measurement: \"P1-P-kWhAfDag\",\n    fields: {\n      value: parseFloat(kwhAfDag)\n    },\n  },\n  {\n    measurement: \"P1-P-kWhAfNacht\",\n    fields: {\n      value: parseFloat(kwhAfNacht)\n    },\n  },\n  {\n    measurement: \"P1-P-kWhInDag\",\n    fields: {\n      value: parseFloat(kwhInDag)\n    },\n  },\n  {\n    measurement: \"P1-P-kWhInNacht\",\n    fields: {\n      value: parseFloat(kwhInNacht)\n    },\n  },\n  {\n    measurement: \"P1-P-calc-InstAbsolute\",\n    fields: {\n      value: parseFloat(absolute)\n    },\n  },\n  {\n    measurement: \"P1-G-Totalm3\",\n    fields: {\n      value: parseFloat(gasm3)\n    },\n  },\n]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 575,
+        "y": 250,
+        "wires": [
+            [
+                "bf7fdb08.176b98"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "bf7fdb08.176b98",
+        "type": "link out",
+        "z": "3b53b0b2.e61ed",
+        "g": "316c606a.88ebc",
+        "name": "",
+        "links": [
+            "437da0b3.474e18"
+        ],
+        "x": 685,
+        "y": 250,
+        "wires": []
+    },
+    {
+        "id": "24751ef8.1ae98a",
+        "type": "influxdb",
+        "hostname": "dockerhost",
+        "port": "8086",
+        "protocol": "http",
+        "database": "powermon",
+        "name": "Influx",
+        "usetls": false,
+        "tls": "6e430d08.28360c",
+        "influxdbVersion": "1.x",
+        "url": "",
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "24143aef.eabc8e",
+        "type": "mqtt-broker",
+        "name": "mqttdomoticz",
+        "broker": "dockerhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "6e430d08.28360c",
+        "type": "tls-config",
+        "name": "local-tls",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    }
+]
