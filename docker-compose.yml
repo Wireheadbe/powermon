@@ -1,0 +1,47 @@
+---
+version: "3.5"
+services:
+  nodered:
+    image: nodered/node-red:latest
+    environment:
+      - UID=1000
+      - GID=100
+      - TZ=UTC
+    ports:
+      - "1880:1880"
+    volumes:
+      - .config:/data
+    network_mode: "host"
+  mqtt:
+    image: eclipse-mosquitto
+    environment:
+      - UID=1000
+      - GID=100
+      - TZ=UTC
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - .configmqtt:/mosquitto/config
+      - .log:/mosquitto/log
+    network_mode: "host"
+  influxdb:
+    image: influxdb:1.8.4
+    environment:
+      - INFLUXDB_DB=powermon
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=becreative
+      - INFLUXDB_USER=mranderson
+      - INFLUXDB_USER_PASSWORD=followthewhiterabbit
+    ports:
+      - "8086:8086"
+    volumes:
+      - .influxdb:/var/lib/influxdb
+    network_mode: "host"
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - .grafana:/var/lib/grafana
+    network_mode: "host"
